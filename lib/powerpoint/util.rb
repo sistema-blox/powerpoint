@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Powerpoint
   module Util
-
     def pixle_to_pt(px)
       px * 12700
     end
@@ -11,7 +12,7 @@ module Powerpoint
       b = merge_variables(binding, variables)
       data = renderer.result(b)
 
-      File.open(path, 'w') { |f| f << data }
+      File.open(path, "w") { |f| f << data }
     end
 
     def read_template(filename)
@@ -19,20 +20,23 @@ module Powerpoint
     end
 
     def require_arguments(required_argements, argements)
-      raise ArgumentError unless required_argements.all? {|required_key| argements.keys.include? required_key}
+      raise ArgumentError unless required_argements.all? { |required_key| argements.key?(required_key) }
     end
 
     def copy_media(extract_path, image_path)
       image_name = File.basename(image_path)
       dest_path = "#{extract_path}/ppt/media/#{image_name}"
+
       FileUtils.copy_file(image_path, dest_path) unless File.exist?(dest_path)
     end
 
     def merge_variables(b, variables)
       return b if variables.empty?
-      variables.each do |k,v|
+
+      variables.each do |k, v|
         b.local_variable_set(k, v)
       end
+
       b
     end
   end
