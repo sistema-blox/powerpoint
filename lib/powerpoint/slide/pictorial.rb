@@ -3,15 +3,16 @@
 require_relative "base"
 require "zip/filesystem"
 require "fileutils"
-require "fastimage"
 require "erb"
+require "powerpoint/util"
+require "pry-byebug"
 
 module Powerpoint
   module Slide
     class Pictorial < Base
       include Powerpoint::Util
 
-      attr_reader :image_name, :title, :coords, :image_path
+      attr_reader :image_name, :title, :coords, :image_path, :presentation
 
       def initialize(options = {})
         require_arguments([:presentation, :title, :image_path], options)
@@ -33,6 +34,8 @@ module Powerpoint
       def default_coords
         slide_width = pixle_to_pt(720)
         default_width = pixle_to_pt(550)
+
+        return {} if dimensions.empty?
 
         image_width, image_height = dimensions.map { |d| pixle_to_pt(d) }
         new_width = [default_width, image_width].min

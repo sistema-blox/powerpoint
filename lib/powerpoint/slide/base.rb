@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "fastimage"
+
 module Powerpoint
   module Slide
     class Base
@@ -8,7 +10,7 @@ module Powerpoint
       end
 
       def file_type
-        return unless defined?(@image_name)
+        return if @image_name.nil?
 
         File.extname(@image_name).delete(".")
       end
@@ -30,7 +32,7 @@ module Powerpoint
       def dimensions
         return @dimensions if defined?(@dimensions)
 
-        @dimensions = defined?(@image_path) ? FastImage.size(@image_path) : []
+        @dimensions = FastImage.size(@image_path) || []
       end
     end
   end
