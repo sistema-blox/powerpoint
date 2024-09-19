@@ -5,13 +5,14 @@ require "zip/filesystem"
 require "fileutils"
 require "fastimage"
 require "erb"
+require "powerpoint/util"
 
 module Powerpoint
   module Slide
-    class DescriptionPic < Base
+    class PictureDescription < Base
       include Powerpoint::Util
 
-      attr_reader :title, :content, :image_name, :image_path, :coords
+      attr_reader :title, :content, :image_name, :image_path, :coords, :presentation
 
       def initialize(options = {})
         require_arguments([:presentation, :title, :image_path, :content], options)
@@ -34,6 +35,8 @@ module Powerpoint
         slide_width = pixle_to_pt(720)
         default_width = pixle_to_pt(550)
         default_height = pixle_to_pt(300)
+
+        return {} if dimensions.empty?
 
         image_width, image_height = dimensions.map { |d| pixle_to_pt(d) }
 
