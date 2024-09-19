@@ -3,6 +3,7 @@
 require "zip/filesystem"
 require "fileutils"
 require "tmpdir"
+require "powerpoint"
 
 module Powerpoint
   class Presentation
@@ -38,7 +39,7 @@ module Powerpoint
     end
 
     def add_text_picture_slide(title, image_path, content = [])
-      @slides << Powerpoint::Slide::TextPicSplit.new(
+      @slides << Powerpoint::Slide::TextPictureSplit.new(
         presentation: self,
         title:,
         image_path:,
@@ -47,7 +48,7 @@ module Powerpoint
     end
 
     def add_picture_description_slide(title, image_path, content = [])
-      @slides << Powerpoint::Slide::DescriptionPic.new(
+      @slides << Powerpoint::Slide::PictureDescription.new(
         presentation: self,
         title:,
         image_path:,
@@ -60,7 +61,7 @@ module Powerpoint
         extract_path = "#{dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"
 
         # Copy template to temp path
-        FileUtils.copy_entry(TEMPLATE_PATH, extract_path)
+        FileUtils.copy_entry(Powerpoint::TEMPLATE_PATH, extract_path)
 
         # Remove keep files
         Dir.glob("#{extract_path}/**/.keep").each do |keep_file|
@@ -81,7 +82,7 @@ module Powerpoint
         # Create .pptx file
         File.delete(path) if File.exist?(path)
 
-        Powerpoint.compress_pptx(extract_path, path)
+        Powerpoint::Compression.compress_pptx(extract_path, path)
       end
 
       path
