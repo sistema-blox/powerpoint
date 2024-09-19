@@ -8,9 +8,9 @@ module Powerpoint
       end
 
       def file_type
-        return unless defined?(@image_path)
+        return unless defined?(@image_name)
 
-        File.extname(image_name).delete(".")
+        File.extname(@image_name).delete(".")
       end
 
       private
@@ -30,7 +30,7 @@ module Powerpoint
       def dimensions
         return @dimensions if defined?(@dimensions)
 
-        @dimensions = FastImage.size(image_path)
+        @dimensions = defined?(@image_path) ? FastImage.size(@image_path) : []
       end
     end
   end
