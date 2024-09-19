@@ -3,7 +3,6 @@
 require_relative "base"
 require "fileutils"
 require "erb"
-require "powerpoint/util"
 
 module Powerpoint
   module Slide

@@ -5,7 +5,6 @@ require "zip/filesystem"
 require "fileutils"
 require "fastimage"
 require "erb"
-require "powerpoint/util"
 
 module Powerpoint
   module Slide

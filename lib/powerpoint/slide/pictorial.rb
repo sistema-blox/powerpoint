@@ -4,9 +4,6 @@ require_relative "base"
 require "zip/filesystem"
 require "fileutils"
 require "erb"
-require "powerpoint/util"
-require "pry-byebug"
-
 module Powerpoint
   module Slide
     class Pictorial < Base

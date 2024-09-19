@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "pry-byebug"
-
 module Powerpoint
   class Compression
     def self.decompress_pptx(in_path, out_path)
