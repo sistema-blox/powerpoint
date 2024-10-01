@@ -75,8 +75,8 @@ module Powerpoint
         render_view("app.xml.erb", "#{extract_path}/docProps/app.xml")
 
         # Save slides
-        slides.each_with_index do |slide, index|
-          slide.save(extract_path, index + 1)
+        slides.each.with_index(1) do |slide, index|
+          slide.save(extract_path, index)
         end
 
         # Create .pptx file
