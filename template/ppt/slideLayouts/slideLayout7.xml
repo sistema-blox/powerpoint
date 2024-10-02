@@ -19,24 +19,27 @@
             </p:grpSpPr>
             <p:sp>
                 <p:nvSpPr>
-                    <p:cNvPr id="2" name="Date Placeholder 1" />
+                    <p:cNvPr id="2" name="Title 1" />
                     <p:cNvSpPr>
                         <a:spLocks noGrp="1" />
                     </p:cNvSpPr>
                     <p:nvPr>
-                        <p:ph type="dt" sz="half" idx="10" />
+                        <p:ph type="title" />
                     </p:nvPr>
                 </p:nvSpPr>
                 <p:spPr />
                 <p:txBody>
                     <a:bodyPr />
-                    <a:lstStyle />
+                    <a:lstStyle>
+                        <a:lvl1pPr>
+                            <a:defRPr />
+                        </a:lvl1pPr>
+                    </a:lstStyle>
                     <a:p>
-                        <a:fld id="{1D8BD707-D9CF-40AE-B4C6-C98DA3205C09}" type="datetimeFigureOut">
+                        <a:r>
                             <a:rPr lang="en-US" smtClean="0" />
-                            <a:pPr />
-                            <a:t>7/14/15</a:t>
-                        </a:fld>
+                            <a:t>Click to edit Master title style</a:t>
+                        </a:r>
                         <a:endParaRPr lang="en-US" />
                     </a:p>
                 </p:txBody>

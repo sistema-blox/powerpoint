@@ -28,19 +28,18 @@
                         <p:ph type="title" />
                     </p:nvPr>
                 </p:nvSpPr>
-                <p:spPr>
-                    <a:xfrm>
-                        <a:off x="500000" y="50000" />
-                        <a:ext cx="9000000" cy="1000000" />
-                    </a:xfrm>
-                </p:spPr>
+                <p:spPr />
                 <p:txBody>
                     <a:bodyPr />
-                    <a:lstStyle />
+                    <a:lstStyle>
+                        <a:lvl1pPr>
+                            <a:defRPr />
+                        </a:lvl1pPr>
+                    </a:lstStyle>
                     <a:p>
                         <a:r>
                             <a:rPr lang="en-US" smtClean="0" />
-                            <a:t>Your Title Here</a:t>
+                            <a:t>Click to edit Master title style</a:t>
                         </a:r>
                         <a:endParaRPr lang="en-US" />
                     </a:p>

@@ -30,7 +30,11 @@
                 <p:spPr />
                 <p:txBody>
                     <a:bodyPr />
-                    <a:lstStyle />
+                    <a:lstStyle>
+                        <a:lvl1pPr>
+                            <a:defRPr />
+                        </a:lvl1pPr>
+                    </a:lstStyle>
                     <a:p>
                         <a:r>
                             <a:rPr lang="en-US" smtClean="0" />
@@ -53,7 +57,7 @@
                 <p:spPr>
                     <a:xfrm>
                         <a:off x="457200" y="1600200" />
-                        <a:ext cx="4038600" cy="4525963" />
+                        <a:ext cx="7620000" cy="4525963" />
                     </a:xfrm>
                 </p:spPr>
                 <p:txBody>
@@ -138,7 +142,7 @@
                 <p:spPr>
                     <a:xfrm>
                         <a:off x="4648200" y="1600200" />
-                        <a:ext cx="4038600" cy="4525963" />
+                        <a:ext cx="7620000" cy="4525963" />
                     </a:xfrm>
                 </p:spPr>
                 <p:txBody>
