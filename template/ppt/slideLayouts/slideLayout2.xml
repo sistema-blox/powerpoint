@@ -53,7 +53,20 @@
         <p:spPr />
         <p:txBody>
           <a:bodyPr />
-          <a:lstStyle />
+          <a:lstStyle>
+            <a:lvl1pPr>
+              <a:defRPr sz="2600" />
+            </a:lvl1pPr>
+            <a:lvl2pPr>
+              <a:defRPr sz="2600" />
+            </a:lvl2pPr>
+            <a:lvl3pPr>
+              <a:defRPr sz="2600" />
+            </a:lvl3pPr>
+            <a:lvl4pPr>
+              <a:defRPr sz="2600" />
+            </a:lvl4pPr>
+          </a:lstStyle>
           <a:p>
             <a:pPr lvl="0" />
             <a:r>
