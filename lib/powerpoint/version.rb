@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Powerpoint
-  VERSION = "1.8"
+  VERSION = "2.0"
 end
