@@ -28,7 +28,12 @@
                         <p:ph type="title" />
                     </p:nvPr>
                 </p:nvSpPr>
-                <p:spPr />
+                <p:spPr>
+                    <a:xfrm>
+                      <a:off x="148000" y="930425" />
+                      <a:ext cx="8572400" cy="1470025" />
+                    </a:xfrm>
+                </p:spPr>
                 <p:txBody>
                     <a:bodyPr />
                     <a:lstStyle>
@@ -57,12 +62,12 @@
                 </p:nvSpPr>
                 <p:spPr>
                     <a:xfrm>
-                        <a:off x="457200" y="3070226" />
+                        <a:off x="457200" y="4070226" />
                         <a:ext cx="7620000" cy="639762" />
                     </a:xfrm>
                 </p:spPr>
                 <p:txBody>
-                    <a:bodyPr anchor="b" />
+                    <a:bodyPr anchor="t" />
                     <a:lstStyle>
                         <a:lvl1pPr marL="0" indent="0">
                             <a:buNone />
