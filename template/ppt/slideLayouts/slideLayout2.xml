@@ -55,16 +55,16 @@
           <a:bodyPr />
           <a:lstStyle>
             <a:lvl1pPr>
-              <a:defRPr sz="2600" />
+              <a:defRPr sz="2400" />
             </a:lvl1pPr>
             <a:lvl2pPr>
-              <a:defRPr sz="2600" />
+              <a:defRPr sz="2400" />
             </a:lvl2pPr>
             <a:lvl3pPr>
-              <a:defRPr sz="2600" />
+              <a:defRPr sz="2400" />
             </a:lvl3pPr>
             <a:lvl4pPr>
-              <a:defRPr sz="2600" />
+              <a:defRPr sz="2400" />
             </a:lvl4pPr>
           </a:lstStyle>
           <a:p>
