@@ -27,7 +27,12 @@
                         <p:ph type="title" />
                     </p:nvPr>
                 </p:nvSpPr>
-                <p:spPr />
+                <p:spPr>
+                    <a:xfrm>
+                      <a:off x="148000" y="830425" />
+                      <a:ext cx="8572400" cy="1470025" />
+                    </a:xfrm>
+                </p:spPr>
                 <p:txBody>
                     <a:bodyPr />
                     <a:lstStyle>
