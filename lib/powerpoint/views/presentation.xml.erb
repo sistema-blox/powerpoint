@@ -4,7 +4,7 @@
     <p:sldMasterId id="2147483648" r:id="rId1"/>
   </p:sldMasterIdLst>
   <p:sldIdLst>
-  <% slides.each_with_index do |slide, index| %>
+  <% deck.each_with_index do |slide, index| %>
   <p:sldId id="<%= 255 + (index+1) %>" r:id="rId<%= (index + 1) + 5 %>"/>
   <% end %>
   </p:sldIdLst>
