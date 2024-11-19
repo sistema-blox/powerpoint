@@ -33,5 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("shoulda-matchers", "~> 6.4")
 
   spec.add_dependency("fastimage", "~> 2.3")
+  spec.add_dependency("google-apis-drive_v3", "~> 0.59")
+  spec.add_dependency("google-apis-slides_v1", "~> 0.28")
+  spec.add_dependency("googleauth", "~> 1.11")
   spec.add_dependency("rubyzip", "~> 2.3")
 end
