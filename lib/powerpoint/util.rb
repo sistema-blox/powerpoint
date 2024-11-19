@@ -39,5 +39,9 @@ module Powerpoint
 
       b
     end
+
+    def google?
+      Powerpoint.provider == :google
+    end
   end
 end
