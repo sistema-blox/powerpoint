@@ -29,9 +29,11 @@ module Powerpoint
 
         object_id_prop = get_object_id_prop(presentation, :intro, index)
 
-        fields.map do |field, content|
+        requests = fields.map do |field, content|
           presentation.replace_all_text(prefix: "intro", field: field.to_s, content:, object_id_prop:)
         end
+
+        requests << presentation.update_slides_position(object_id_prop:, index:)
       end
 
       def file_type

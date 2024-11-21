@@ -31,9 +31,11 @@ module Powerpoint
 
         object_id_prop = get_object_id_prop(presentation, prefix.to_sym, index)
 
-        fields.map do |field, content|
+        requests = fields.map do |field, content|
           presentation.replace_all_text(prefix:, field: field.to_s, content:, object_id_prop:)
         end
+
+        requests << presentation.update_slides_position(object_id_prop:, index:)
       end
 
       def save_google_bullet(presentation:, index:)
@@ -43,6 +45,7 @@ module Powerpoint
 
         requests << presentation.replace_all_text(prefix:, field: "title", content: title, object_id_prop:)
         requests << presentation.update_bullet_style(shape_id(presentation, object_id_prop), content.join("\n"))
+        requests << presentation.update_slides_position(object_id_prop:, index:)
       end
 
       def prefix

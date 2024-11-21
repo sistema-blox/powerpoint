@@ -100,6 +100,20 @@ module Powerpoint
         Google::Apis::SlidesV1::Request.new(replace_all_text: base_request)
       end
 
+      def update_slides_position(object_id_prop:, index:)
+        raise "The index #{index} is invalid" if index.negative?
+        raise "The object_id_prop #{object_id_prop} is invalid" if object_id_prop.empty?
+
+        base_request = Google::Apis::SlidesV1::UpdateSlidesPositionRequest.new(
+          slide_object_ids: [object_id_prop],
+          insertion_index: index,
+        )
+
+        Google::Apis::SlidesV1::Request.new(
+          update_slides_position: base_request,
+        )
+      end
+
       def remove_unused_slides!
         requests = []
 
