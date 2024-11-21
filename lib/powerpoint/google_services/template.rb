@@ -54,6 +54,16 @@ module Powerpoint
         end
       end
 
+      def remove_template
+        raise "Template name is required" if template_name?
+
+        template = get_template
+
+        raise "Template not found" unless template
+
+        drive.delete_file(template.id)
+      end
+
       def template_name?
         template_name.nil? || template_name.empty?
       end
