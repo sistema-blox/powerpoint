@@ -31,9 +31,7 @@ module Powerpoint
       private
 
       def upload_source
-        raise "PPTX path is required" if pptx_path?
-        raise "Template not found" unless File.exist?(pptx_path)
-        raise "Template must be a .pptx file" unless File.extname(pptx_path) == ".pptx"
+        validate_upload_file(pptx_path)
 
         filename = File.basename(pptx_path, ".pptx")
 
@@ -70,6 +68,12 @@ module Powerpoint
 
       def pptx_path?
         pptx_path.nil? || pptx_path.empty?
+      end
+
+      def validate_upload_file(ppt_path)
+        raise "PPTX path is required" if pptx_path?
+        raise "Template not found" unless File.exist?(pptx_path)
+        raise "Template must be a .pptx file" unless File.extname(pptx_path) == ".pptx"
       end
     end
   end
