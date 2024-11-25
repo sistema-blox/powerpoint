@@ -10,6 +10,13 @@ module Powerpoint
     class Api
       attr_accessor :current_presentation
 
+      ALL_POSSIBLE_ERRORS = [
+        Google::Apis::ServerError,
+        Google::Apis::ClientError,
+        Google::Apis::AuthorizationError,
+        Errno::ENOENT
+      ]
+
       def initialize
         raise "Configuration not set" unless Powerpoint.provider == :google
       end
@@ -44,10 +51,8 @@ module Powerpoint
         @authorizer.fetch_access_token!
 
         @authorizer
-      rescue FileNotFoundError => e
-        raise "Google credentials file not found: #{e}"
-      rescue StandardError => e
-        raise "Google credentials error: #{e}"
+      rescue *ALL_POSSIBLE_ERRORS => e
+        raise "Error: #{e.message}"
       end
 
       def scope
