@@ -52,7 +52,7 @@ module Powerpoint
         new_slide_id_prop = "COPY_#{object_id_prop}#{index}"
 
         duplicate_request = Google::Apis::SlidesV1::DuplicateObjectRequest.new(
-          object_id_prop: object_id_prop,
+          object_id_prop:,
           object_ids: { object_id_prop => new_slide_id_prop },
         )
 
