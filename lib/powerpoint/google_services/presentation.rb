@@ -148,7 +148,7 @@ module Powerpoint
             rescue Google::Apis::ClientError => e
               raise e if attempts >= MAX_ATTEMPTS
 
-              sleep(timeout)
+              sleep(timeout(attempts))
 
               attempts += 1
             end
@@ -210,8 +210,10 @@ module Powerpoint
         end
       end
 
-      def timeout
-        (5..15).to_a.sample
+      def timeout(attempts)
+        base = (5..15).to_a.sample
+
+        base * (attempts + 1)
       end
     end
   end
