@@ -26,6 +26,8 @@ module Powerpoint
         "BULLET_DIAMOND_CIRCLE_SQUARE",
         "NUMBERED_UPPERALPHA_ALPHA_ROMAN",
       ]
+      PER_REQUEST = 10
+      MAX_ATTEMPTS = 5
 
       def initialize(template_name = "")
         super()
@@ -133,7 +135,25 @@ module Powerpoint
       end
 
       def save_presentation!(requests)
-        batch_update!(requests)
+        requests.each_slice(PER_REQUEST) do |request_chunk|
+          attempts = 0
+
+          loop do
+            break if attempts >= MAX_ATTEMPTS
+
+            begin
+              batch_update!(request_chunk)
+
+              break
+            rescue Google::Apis::ClientError => e
+              raise e if attempts >= MAX_ATTEMPTS
+
+              sleep(timeout)
+
+              attempts += 1
+            end
+          end
+        end
       end
 
       def delete_presentation!
@@ -188,6 +208,10 @@ module Powerpoint
             structure[key] << slide
           end
         end
+      end
+
+      def timeout
+        (5..15).to_a.sample
       end
     end
   end
