@@ -21,17 +21,17 @@ module Powerpoint
 
   class << self
     attr_accessor :configuration, :google
-  end
 
-  def self.configure
-    self.configuration ||= Powerpoint::Configuration.new
+    def configure
+      self.configuration ||= Powerpoint::Configuration.new
 
-    yield(configuration) if block_given?
+      yield(configuration) if block_given?
 
-    self.google ||= Powerpoint::GoogleServices::Api.new
-  end
+      self.google ||= Powerpoint::GoogleServices::Api.new
+    end
 
-  def self.provider
-    configuration.nil? ? :local : :google
+    def provider
+      configuration.nil? ? :local : :google
+    end
   end
 end

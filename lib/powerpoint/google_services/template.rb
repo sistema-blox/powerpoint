@@ -16,16 +16,18 @@ module Powerpoint
         args.each { |k, v| instance_variable_set(:"@#{k}", v) }
       end
 
-      def self.upload_source(args)
-        new(args).send(:upload_source)
-      end
+      class << self
+        def upload_source(args)
+          new(args).send(:upload_source)
+        end
 
-      def self.get_template(args = {})
-        new(args).send(:get_template)
-      end
+        def get_template(args = {})
+          new(args).send(:get_template)
+        end
 
-      def self.remove_template(args = {})
-        new(args).send(:remove_template)
+        def remove_template(args = {})
+          new(args).send(:remove_template)
+        end
       end
 
       private
