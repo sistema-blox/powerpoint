@@ -27,7 +27,7 @@ module Powerpoint
         "NUMBERED_UPPERALPHA_ALPHA_ROMAN",
       ]
       PER_REQUEST = 10
-      MAX_ATTEMPTS = 5
+      MAX_ATTEMPTS = 15
 
       def initialize(template_name = "")
         super()
@@ -211,9 +211,11 @@ module Powerpoint
       end
 
       def timeout(attempts)
-        base = (5..15).to_a.sample
+        base = (5..15).to_a.sample * (attempts + 1)
 
-        base * (attempts + 1)
+        return 60 if base > 60
+
+        base
       end
     end
   end
