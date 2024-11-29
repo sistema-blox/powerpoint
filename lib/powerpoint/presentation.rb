@@ -87,6 +87,10 @@ module Powerpoint
       presentation.delete_presentation!
 
       args[:path]
+    rescue Google::Apis::ClientError => e
+      Powerpoint.google.drive.delete_file(presentation.presentation_id) if presentation&.presentation_id
+
+      raise e
     end
 
     def save_default(args)
