@@ -27,7 +27,8 @@ module Powerpoint
         "NUMBERED_UPPERALPHA_ALPHA_ROMAN",
       ]
       PER_REQUEST = 10
-      MAX_ATTEMPTS = 15
+      MAX_ATTEMPTS = 10
+      MAX_BACKOFF = 60
 
       def initialize(template_name = "")
         super()
@@ -211,11 +212,12 @@ module Powerpoint
       end
 
       def timeout(attempts)
-        base = (5..15).to_a.sample * (attempts + 1)
+        random_number_seconds = (1..15).to_a.sample
 
-        return 60 if base > 60
+        base_backoff = 2**attempts
+        backoff_with_randomness = base_backoff + random_number_seconds
 
-        base
+        [backoff_with_randomness, MAX_BACKOFF].min
       end
     end
   end
