@@ -7,7 +7,7 @@
   <% end %>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml" PartName="/ppt/presentation.xml"/>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml" PartName="/ppt/slideMasters/slideMaster1.xml"/>
-  <% slides.each_with_index do |slide, index| %>
+  <% deck.each_with_index do |slide, index| %>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml" PartName="/ppt/slides/slide<%= index + 1 %>.xml"/>
   <% end %>
   <Override ContentType="application/vnd.openxmlformats-officedocument.presentationml.presProps+xml" PartName="/ppt/presProps.xml"/>

@@ -4,33 +4,37 @@ require "zip/filesystem"
 require "fileutils"
 require "tmpdir"
 require "powerpoint"
-
 module Powerpoint
   class Presentation
     include Powerpoint::Util
 
-    attr_reader :slides
+    attr_reader :deck
+
+    SAVE_METHOD = {
+      local: :save_default,
+      google: :save_google_slide,
+    }
 
     def initialize
-      @slides = []
+      @deck = []
     end
 
-    def add_intro(title, subtitile = nil)
-      slide = Powerpoint::Slide::Intro.new(presentation: self, title:, subtitile:)
+    def add_intro(title, subtitle = nil)
+      slide = Powerpoint::Slide::Intro.new(presentation: self, title:, subtitle:)
 
       if existing_intro_slide.nil?
-        @slides.insert(0, slide)
+        @deck.insert(0, slide)
       else
-        @slides[@slides.index(existing_intro_slide)] = slide
+        @deck[@deck.index(existing_intro_slide)] = slide
       end
     end
 
     def add_textual_slide(title, content = [])
-      @slides << Powerpoint::Slide::Textual.new(presentation: self, title:, content:)
+      @deck << Powerpoint::Slide::Textual.new(presentation: self, title:, content:)
     end
 
     def add_pictorial_slide(title, image_path, coords = {})
-      @slides << Powerpoint::Slide::Pictorial.new(
+      @deck << Powerpoint::Slide::Pictorial.new(
         presentation: self,
         title:,
         image_path:,
@@ -39,7 +43,7 @@ module Powerpoint
     end
 
     def add_text_picture_slide(title, image_path, content = [])
-      @slides << Powerpoint::Slide::TextPictureSplit.new(
+      @deck << Powerpoint::Slide::TextPictureSplit.new(
         presentation: self,
         title:,
         image_path:,
@@ -48,7 +52,7 @@ module Powerpoint
     end
 
     def add_picture_description_slide(title, image_path, content = [])
-      @slides << Powerpoint::Slide::PictureDescription.new(
+      @deck << Powerpoint::Slide::PictureDescription.new(
         presentation: self,
         title:,
         image_path:,
@@ -56,7 +60,42 @@ module Powerpoint
       )
     end
 
-    def save(path)
+    def save(args = {})
+      raise "Argument must be a hash" unless args.is_a?(Hash)
+
+      save_method = SAVE_METHOD[Powerpoint.provider]
+
+      raise "Invalid save method" if save_method.nil?
+
+      send(save_method, args)
+
+      args[:path]
+    end
+
+    private
+
+    def save_google_slide(args)
+      template_name = args[:template_name] || ""
+
+      presentation = Powerpoint::GoogleServices::Presentation.new(template_name)
+
+      requests = deck.map.with_index { |slide, index| slide.save(presentation:, index:) }.flatten
+
+      presentation.save_presentation!(requests)
+      presentation.remove_unused_slides!
+      presentation.export_presentation(args[:path])
+      presentation.delete_presentation!
+
+      args[:path]
+    rescue Google::Apis::ClientError => e
+      Powerpoint.google.drive.delete_file(presentation.presentation_id) if presentation&.presentation_id
+
+      raise e
+    end
+
+    def save_default(args)
+      path = args[:path]
+
       Dir.mktmpdir do |dir|
         extract_path = "#{dir}/extract_#{Time.now.strftime("%Y-%m-%d-%H%M%S")}"
 
@@ -74,9 +113,9 @@ module Powerpoint
         render_view("presentation.xml.erb", "#{extract_path}/ppt/presentation.xml")
         render_view("app.xml.erb", "#{extract_path}/docProps/app.xml")
 
-        # Save slides
-        slides.each.with_index(1) do |slide, index|
-          slide.save(extract_path, index)
+        # Save deck
+        deck.each.with_index(1) do |slide, index|
+          slide.save(extract_path:, index:)
         end
 
         # Create .pptx file
@@ -84,18 +123,14 @@ module Powerpoint
 
         Powerpoint::Compression.compress_pptx(extract_path, path)
       end
-
-      path
     end
 
     def file_types
-      slides.filter_map { |slide| slide.file_type if slide.respond_to?(:file_type) }.uniq
+      deck.filter_map { |slide| slide.file_type if slide.respond_to?(:file_type) }.uniq
     end
 
-    private
-
     def existing_intro_slide
-      @slides.find { |s| s.class == Powerpoint::Slide::Intro }
+      @deck.find { |s| s.class == Powerpoint::Slide::Intro }
     end
   end
 end
